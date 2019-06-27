@@ -1,7 +1,7 @@
 import unittest
 from solution import decode
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.decode = decode()
 

@@ -1,7 +1,7 @@
 import unittest
 from solution import ID
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.number_id = ID()
 

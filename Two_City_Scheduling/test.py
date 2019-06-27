@@ -1,7 +1,7 @@
 import unittest
 from solution import two_city
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.two_city = two_city()
 

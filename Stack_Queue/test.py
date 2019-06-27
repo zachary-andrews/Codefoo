@@ -1,7 +1,7 @@
 import unittest
 from solution import stack
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.stack = stack()
         self.stack.push(1)

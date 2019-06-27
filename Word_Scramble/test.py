@@ -1,7 +1,7 @@
 import unittest
 from solution import unscramble
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.unscramble = unscramble()
 

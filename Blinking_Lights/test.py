@@ -1,7 +1,7 @@
 import unittest
 from solution import Lights
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.lights = Lights()
 

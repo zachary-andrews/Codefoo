@@ -1,7 +1,7 @@
 import unittest
 from solution import Palindrom
 
-class importIDTests(unittest.TestCase):
+class importTests(unittest.TestCase):
     def setUp(self):
         self.palindrom = palindrom()
 
