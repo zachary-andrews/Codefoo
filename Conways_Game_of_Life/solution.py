@@ -9,10 +9,10 @@ class App(tk.Tk):
         self.title("Conways Game of Life")
         
         
-    def run(self,rows,cols,alive,color):
-        self.cellwidth = 25
-        self.cellheight = 25
-        self.canvas = tk.Canvas(self, width=25*rows, height=25*cols, borderwidth=0, highlightthickness=0)
+    def run(self,rows,cols,alive,color,speed):
+        self.cellwidth = 10
+        self.cellheight = 10
+        self.canvas = tk.Canvas(self, width=self.cellwidth*rows, height=self.cellheight*cols, borderwidth=0, highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
         self.rect = {}
         self.rows = rows
@@ -28,11 +28,12 @@ class App(tk.Tk):
                 self.rect[row,column] = self.canvas.create_rectangle(x1,y1,x2,y2, fill="grey", tags="rect")
         map = numpy.zeros((self.rows,self.columns))
         self.start(map,alive)
-        self.redraw(map,1000,color)
+        self.redraw(map,speed,color,0)
 
-    def redraw(self,map,delay,color):
+    def redraw(self,map,delay,color,year):
         map = self.play(map)
         size = numpy.size(map,1)
+        self.title("Conways Game of Life. Year = "+str(year))
         self.canvas.itemconfig("rect", fill="grey")
         for i in range(0,size):
             for j in range(0,size):
@@ -40,13 +41,12 @@ class App(tk.Tk):
                     item_id = self.rect[i,j]
                     self.canvas.itemconfig(item_id, fill=color)
 
-        self.after(delay, lambda: self.redraw(map,delay,color))
+        self.after(delay, lambda: self.redraw(map,delay,color,year+1))
     
     def start(self,map,alive):
         starting_alive = alive
-        print(starting_alive)
         size = numpy.size(map,1)
-        for i in range(starting_alive):
+        for i in range(starting_alive*2):
             row = random.randint(0,size-1)
             col = random.randint(0,size-1)
             map[row][col] = 1
@@ -112,12 +112,23 @@ class App(tk.Tk):
         return neighbors
 
 class Start_Screen(tk.Tk):
-    def letsgo(self,size,alive,color):
+    def speed_switch(self,argument):
+        switcher = {
+        1: 10000,
+        2: 1000,
+        3: 100,
+        4: 10,
+        5: 1
+        }
+        return switcher.get(argument)
+
+    def letsgo(self,size,alive,color,speed):
         rows= size
         cols = size
         app = App()
+        speed = self.speed_switch(speed)
         self.destroy()
-        app.run(rows,cols,alive,color)
+        app.run(rows,cols,alive,color,speed)
         app.mainloop()
         
 
@@ -127,24 +138,28 @@ class Start_Screen(tk.Tk):
 
         tk.Label(self, text='Size of Game').grid(row=0) 
         tk.Label(self, text='Number of Starting Squares').grid(row=1)
-        tk.Label(self, text='Choose your color').grid(row=2) 
+        tk.Label(self, text='Game Speed').grid(row=2)
+        tk.Label(self, text='Choose your color').grid(row=3) 
 
         size = tk.Scale(self, from_=10, to=100, orient='horizontal') 
         size.grid(row=0, column=1) 
         
-        start = tk.Scale(self, from_=20, to=200, orient='horizontal') 
+        start = tk.Scale(self, from_=20, to=500, orient='horizontal') 
         start.grid(row=1, column=1)
+
+        speed = tk.Scale(self, from_=1, to=5, orient='horizontal') 
+        speed.grid(row=2, column=1)
 
         color = tk.Entry(self)
         color.insert(0,"Green")
-        color.grid(row=2,column=1)
+        color.grid(row=3,column=1)
 
 
-        button = tk.Button(self, text='Start', width=25, command=lambda: self.letsgo(size.get(),start.get(),color.get()))
-        button.grid(row=3,column=1)
+        button = tk.Button(self, text='Start', width=25, command=lambda: self.letsgo(size.get(),start.get(),color.get(),speed.get()))
+        button.grid(row=4,column=1)
 
         quit = tk.Button(self, text='Quit', width=25, command=self.destroy)
-        quit.grid(row=3,column=0)
+        quit.grid(row=4,column=0)
     
     
 if __name__ == "__main__":
