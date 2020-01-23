@@ -1,7 +1,9 @@
 import sys
 import math
+
+
 class brackets:
-    def check(self, bracketString):
+    def check(self, bracketString: str) -> str:
         dict = {
             ")": "(",
             "}": "{",
@@ -17,7 +19,7 @@ class brackets:
                     return "No"
                 else:
                     stack.pop()
-        if len(stack)  > 0:
+        if len(stack) > 0:
             return "No"
         else:
             return "Yes"
