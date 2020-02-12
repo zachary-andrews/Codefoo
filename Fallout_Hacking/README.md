@@ -1,7 +1,31 @@
-Given an encoded string, return it's decoded string.
+Description
+The popular video games Fallout 3 and Fallout: New Vegas have a computer "hacking" minigame where the player must correctly guess the correct password from a list of same-length words. Your challenge is to implement this game yourself.
 
-The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+The game operates similarly to the classic board game [Mastermind](http://en.wikipedia.org/wiki/Mastermind_(board_game)). The player has only 4 guesses and on each incorrect guess the computer will indicate how many letter positions are correct.
 
-You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
+For example, if the password is MIND and the player guesses MEND, the game will indicate that 3 out of 4 positions are correct (M_ND). If the password is COMPUTE and the player guesses PLAYFUL, the game will report 0/7. While some of the letters match, they're in the wrong position.
 
-Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4].
+Ask the player for a difficulty (very easy, easy, average, hard, very hard), then present the player with 5 to 15 words of the same length. The length can be 4 to 15 letters. More words and letters make for a harder puzzle. The player then has 4 guesses, and on each incorrect guess indicate the number of correct positions.
+
+Here's an example game:
+
+Difficulty (1-5)? 3
+SCORPION
+FLOGGING
+CROPPERS
+MIGRAINE
+FOOTNOTE
+REFINERY
+VAULTING
+VICARAGE
+PROTRACT
+DESCENTS
+Guess (4 left)? migraine
+0/8 correct
+Guess (3 left)? protract
+2/8 correct
+Guess (2 left)? croppers
+8/8 correct
+You win!
+
+Challenge taken from dailyprogrammer
