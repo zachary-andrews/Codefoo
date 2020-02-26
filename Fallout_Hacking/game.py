@@ -13,21 +13,19 @@ class game:
 
     def create_game(self,difficulty):
         difficulty_switch = {
-            "very easy": 3,
             "easy": 4,
             "average": 5,
-            "hard": 7,
-            "very hard": 12
+            "hard": 7
         }
 
         words = self.get_all_words()
         size = difficulty_switch.get(difficulty)
-        filtered_words = [word.decode().upper() for word in words if len(word) <= size and len(word) >= size-3]
+        filtered_words = [word.decode().upper() for word in words]
 
         passphrase = random.choice(filtered_words)
 
         same_length_words = [word for word in filtered_words if len(word) == len(passphrase)]
-        clue_words = random.choices(same_length_words,k=5)
+        clue_words = random.choices(same_length_words,k=size)
         clue_words.append(passphrase)
         random.shuffle(clue_words)
 
@@ -47,7 +45,11 @@ class game:
         return self.clue_words
 
     def get_passphrase(self):
-        print(self.passphrase)
+        return self.passphrase
+
+    def check_one(self, guess):
+        check = self.check(guess)
+        return check
 
     def play(self):
         print('\n'.join(self.clue_words))
@@ -60,8 +62,8 @@ class game:
         return(False)
 
 if __name__ == '__main__':
-    difficulty_options = ["very easy", "easy", "average", "hard", "very hard"]
-    difficulty = input("Choose your difficulty (very easy, easy, average, hard, very hard)? ")
+    difficulty_options = ["easy", "average", "hard"]
+    difficulty = input("Choose your difficulty (easy, average, hard)? ")
     if difficulty not in difficulty_options:
         print("you bot thats not an option")
         exit(1)
